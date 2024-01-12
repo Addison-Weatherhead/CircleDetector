@@ -72,7 +72,7 @@ def generate_examples(
     assert img_size > max_radius, "size should be greater than max_radius"
     assert noise_level >= 0, "noise should be non-negative"
 
-    params = f"{noise_level=}, {img_size=}, {min_radius=}, {max_radius=}, {dataset_path=}"
+    params = f"noise_level={noise_level}, img_size={img_size}, min_radius={min_radius}, max_radius={max_radius}, dataset_path={dataset_path}"
     print(f"Using parameters: {params}")
     while True:
         img, params = noisy_circle(

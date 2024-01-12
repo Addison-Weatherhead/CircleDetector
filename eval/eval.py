@@ -3,6 +3,7 @@ import torch
 import numpy as np
 from typing import Callable
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def iou(a: torch.Tensor, b: torch.Tensor) -> float:
     """Calculate the intersection over union of two circles. 
     a and b each contain (x, y, radius) of a circle"""
@@ -40,7 +41,9 @@ def evaluate_testing_set(model: torch.nn.Module, test_dataloader: torch.utils.da
     with torch.no_grad():
         test_batch = next(iter(test_dataloader))
         test_images, test_params = test_batch
+        test_images, test_params = test_images.to(device), test_params.to(device)
         test_preds = model(test_images)
         test_loss = loss_fn(test_preds, test_params)
+        test_images, test_preds, test_params = test_images.cpu(), test_preds.cpu(), test_params.cpu()
         test_iou = batch_iou(test_preds, test_params)
         return test_loss, test_iou
