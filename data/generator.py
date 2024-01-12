@@ -97,7 +97,7 @@ def get_dataset(num_samples: int = 3000, noise_level: float = 0.5, img_size: int
     """
     Generate a dataset of circles with the given parameters.
     """
-    generator = generate_examples(noise_level=0.1, min_radius=10, max_radius=15)
+    generator = generate_examples(noise_level=noise_level, img_size=img_size, min_radius=min_radius, max_radius=max_radius)
     images, params_arr = [], []
     
     for img, params in generator:
@@ -108,9 +108,5 @@ def get_dataset(num_samples: int = 3000, noise_level: float = 0.5, img_size: int
     
     return CircleDataset(images, params_arr)
 
-if __name__ == '__main__':
-    generator = generate_examples(noise_level=0.1, min_radius=10, max_radius=15)
-    for img, circle_params in generator:
-        show_circle(img)
-        print(circle_params)
+
         
